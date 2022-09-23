@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lesson_13/screens/login_screen.dart';
-import 'package:flutter_lesson_13/shared_preferens.dart';
 import 'package:flutter_lesson_13/widget/text_button_class.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,30 +14,28 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   String? name;
   String? eMail;
-  String? phone;
+  String? pHone;
   @override
   void initState() {
     super.initState();
-    getValue();
+    getLogin();
   }
 
-// получаем данные
-  Future<void> getValue() async {
+  Future<void> getLogin() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     setState(() {
-      name = storage.getString(UserPreferens().nameKey);
-      eMail = storage.getString(UserPreferens().emailKey);
-      phone = storage.getString(UserPreferens().phoneKey);
+      name = storage.getString('name_key');
+      eMail = storage.getString('email');
+      pHone = storage.getString('phone');
     });
   }
 
   Future<void> exit() async {
     final SharedPreferences storage = await SharedPreferences.getInstance();
-    storage.remove(UserPreferens().nameKey);
-    storage.remove(UserPreferens().passwordKey);
-    storage.remove(UserPreferens().isCheckedKey);
-    storage.remove(UserPreferens().emailKey);
-    storage.remove(UserPreferens().phoneKey);
+    storage.remove('name_key');
+    storage.remove('password_key');
+    storage.remove('isChecked');
+    storage.remove('phone');
     //storage.clear();
   }
 
@@ -99,7 +96,7 @@ class _UserProfileState extends State<UserProfile> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                controller: TextEditingController(text: phone),
+                controller: TextEditingController(text: pHone),
                 style: const TextStyle(fontSize: 20),
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -146,7 +143,7 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             // ListTile(
             //   leading: Text('Name: $name'),
             //   shape: const Border(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lesson_13/screens/user_profile.dart';
-import 'package:flutter_lesson_13/shared_preferens.dart';
 import 'package:flutter_lesson_13/widget/input_decoration.dart';
 import 'package:flutter_lesson_13/widget/text_button_class.dart';
 import 'package:get/get.dart';
@@ -18,14 +17,16 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   String username = '';
   String password = '';
   String eMail = '';
+  String pHone = '';
 
   //записываем данные в память при регистрации
-  Future<void> register(String name, String pass, String email) async {
+  Future<void> register(
+      String name, String pass, String email, String phone) async {
     SharedPreferences storage = await SharedPreferences.getInstance();
-    storage.setString(UserPreferens().nameKey, name);
-    storage.setString(UserPreferens().passwordKey, pass);
-    storage.setString(UserPreferens().emailKey, email);
-    storage.setString(UserPreferens().phoneKey, email);
+    storage.setString('name_key', name);
+    storage.setString('password_key', pass);
+    storage.setString('email', email);
+    storage.setString('phone', phone);
   }
 
   @override
@@ -46,7 +47,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               _buildSpacer(10),
               _buildTextFiledName(),
               _buildSpacer(10),
-              _buildPhoneFiled(),
+              _buildPhone(),
               _buildSpacer(10),
               _buildTextFiledEmail(),
               _buildSpacer(10),
@@ -87,7 +88,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  Widget _buildPhoneFiled() {
+  Widget _buildPhone() {
     return TextFormField(
       keyboardType: TextInputType.phone,
       decoration: inputDecorationForm(
@@ -98,7 +99,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
         return null;
       },
       onChanged: (value) {
-        username = value;
+        pHone = value;
       },
     );
   }
@@ -165,7 +166,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
         function: () {
           if (_formKeyKey.currentState!.validate()) {
             setState(() {
-              register(username, password, eMail);
+              register(username, password, eMail, pHone);
               Get.offAll(
                 () => const UserProfile(),
               );

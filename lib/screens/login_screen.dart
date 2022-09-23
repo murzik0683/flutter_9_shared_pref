@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lesson_13/screens/reristration_screen.dart';
 import 'package:flutter_lesson_13/screens/user_profile.dart';
-import 'package:flutter_lesson_13/shared_preferens.dart';
 import 'package:flutter_lesson_13/widget/input_decoration.dart';
 import 'package:flutter_lesson_13/widget/text_button_class.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -29,8 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Future getValidation(String name, String pass) async {
     bool getVal = false;
     final SharedPreferences storage = await SharedPreferences.getInstance();
-    if ((storage.getString(UserPreferens().nameKey) == name &&
-        storage.getString(UserPreferens().passwordKey) == pass)) {
+    if ((storage.getString('name_key') == name &&
+        storage.getString('password_key') == pass)) {
       getVal = true;
       Get.offAll(
         () => const UserProfile(),
@@ -59,18 +58,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> remember(bool isChecked) async {
     final SharedPreferences storage = await SharedPreferences.getInstance();
-    storage.setBool(UserPreferens().isCheckedKey, isChecked);
+    storage.setBool('isChecked', isChecked);
   }
 
   Future<void> rememberFields() async {
     final SharedPreferences storage = await SharedPreferences.getInstance();
-    bool getValidation = storage.getBool(UserPreferens().isCheckedKey) ?? false;
+    bool getValidation = storage.getBool('isChecked') ?? false;
     if (getValidation == true) {
       setState(() {});
       // nameController =
-      //     TextEditingController(text: storage.getString(UserPreferens().nameKey));
-      passwordController = TextEditingController(
-          text: storage.getString(UserPreferens().passwordKey));
+      //     TextEditingController(text: storage.getString('name_key'));
+      passwordController =
+          TextEditingController(text: storage.getString('password_key'));
       _isChecked = true;
     }
   }
