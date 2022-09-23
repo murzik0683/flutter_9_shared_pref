@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lesson_13/screens/login_screen.dart';
+import 'package:flutter_lesson_13/shared_preferens.dart';
 import 'package:flutter_lesson_13/widget/text_button_class.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,18 +25,19 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> getLogin() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     setState(() {
-      name = storage.getString('name_key');
-      eMail = storage.getString('email');
-      pHone = storage.getString('phone');
+      name = storage.getString(UserPreferens().nameKey);
+      eMail = storage.getString(UserPreferens().emailKey);
+      pHone = storage.getString(UserPreferens().phoneKey);
     });
   }
 
   Future<void> exit() async {
     final SharedPreferences storage = await SharedPreferences.getInstance();
-    storage.remove('name_key');
-    storage.remove('password_key');
-    storage.remove('isChecked');
-    storage.remove('phone');
+    storage.remove(UserPreferens().nameKey);
+    storage.remove(UserPreferens().passwordKey);
+    storage.remove(UserPreferens().isCheckedKey);
+    storage.remove(UserPreferens().phoneKey);
+    storage.remove(UserPreferens().emailKey);
     //storage.clear();
   }
 
