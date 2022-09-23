@@ -25,6 +25,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     storage.setString(UserPreferens().nameKey, name);
     storage.setString(UserPreferens().passwordKey, pass);
     storage.setString(UserPreferens().emailKey, email);
+    storage.setString(UserPreferens().phoneKey, email);
   }
 
   @override
@@ -44,6 +45,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               _buildAvatar(),
               _buildSpacer(10),
               _buildTextFiledName(),
+              _buildSpacer(10),
+              _buildPhoneFiled(),
               _buildSpacer(10),
               _buildTextFiledEmail(),
               _buildSpacer(10),
@@ -76,6 +79,22 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       ),
       validator: (value) {
         if (value!.isEmpty) return 'Enter your name';
+        return null;
+      },
+      onChanged: (value) {
+        username = value;
+      },
+    );
+  }
+
+  Widget _buildPhoneFiled() {
+    return TextFormField(
+      keyboardType: TextInputType.phone,
+      decoration: inputDecorationForm(
+        const Text('Phone'),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) return 'Enter your phone';
         return null;
       },
       onChanged: (value) {

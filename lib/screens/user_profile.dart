@@ -15,6 +15,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   String? name;
   String? eMail;
+  String? phone;
   @override
   void initState() {
     super.initState();
@@ -27,6 +28,7 @@ class _UserProfileState extends State<UserProfile> {
     setState(() {
       name = storage.getString(UserPreferens().nameKey);
       eMail = storage.getString(UserPreferens().emailKey);
+      phone = storage.getString(UserPreferens().phoneKey);
     });
   }
 
@@ -36,6 +38,7 @@ class _UserProfileState extends State<UserProfile> {
     storage.remove(UserPreferens().passwordKey);
     storage.remove(UserPreferens().isCheckedKey);
     storage.remove(UserPreferens().emailKey);
+    storage.remove(UserPreferens().phoneKey);
     //storage.clear();
   }
 
@@ -96,6 +99,21 @@ class _UserProfileState extends State<UserProfile> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
+                controller: TextEditingController(text: phone),
+                style: const TextStyle(fontSize: 20),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'Phone',
+                  suffixIcon: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
                 controller: TextEditingController(text: eMail),
                 style: const TextStyle(fontSize: 20),
                 decoration: const InputDecoration(
@@ -112,7 +130,7 @@ class _UserProfileState extends State<UserProfile> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
                 controller: TextEditingController(),
-                maxLines: 5,
+                maxLines: 3,
                 style: const TextStyle(fontSize: 20),
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -128,7 +146,7 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             // ListTile(
             //   leading: Text('Name: $name'),
             //   shape: const Border(
